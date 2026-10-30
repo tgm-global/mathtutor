@@ -12,7 +12,7 @@ if CUSTOM_DOMAIN:
     SITE_URL, BASE_PATH = f"https://{CUSTOM_DOMAIN}", ""
 else:
     SITE_URL, BASE_PATH = f"https://{GITHUB_USER}.github.io/{REPO}", f"/{REPO}"
-BRAND = "Shaifali Jain Math Tutoring"
+BRAND = "Shaifali Jain Math Tutor"
 # Phone / email / Facebook / Web3Forms key are read from js/config.js (single place to edit)
 import re
 _cfg_txt = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "js", "config.js"), encoding="utf-8").read()
