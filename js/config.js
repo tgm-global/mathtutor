@@ -7,7 +7,7 @@
    static HTML/SEO data mein bhi same update ho jaaye.)
    phone = country code ke saath, bina + ya space ke. */
 window.SITE_CONFIG = {
-  "brandName": "Shaifali Jain Math Tutoring",
+  "brandName": "Shaifali Jain Math Tutor",
   "brandAccent": "Jain",
   "phone": "919625959146",
   "phoneDisplay": "+91 96259 59146",
