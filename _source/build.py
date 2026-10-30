@@ -12,7 +12,6 @@ if CUSTOM_DOMAIN:
     SITE_URL, BASE_PATH = f"https://{CUSTOM_DOMAIN}", ""
 else:
     SITE_URL, BASE_PATH = f"https://{GITHUB_USER}.github.io/{REPO}", f"/{REPO}"
-BRAND = "Shaifali Jain Math Tutor"
 # Phone / email / Facebook / Web3Forms key are read from js/config.js (single place to edit)
 import re
 _cfg_txt = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "js", "config.js"), encoding="utf-8").read()
@@ -22,6 +21,14 @@ PHONE_SHOW = CFG["phoneDisplay"]
 EMAIL = CFG["email"]
 FACEBOOK = CFG["facebook"]
 W3F_KEY = CFG["web3formsKey"]
+BRAND = CFG.get("brandName", "Shaifali Jain Math Tutoring")   # logo / footer / page-title name (edit in js/config.js)
+BRAND_ACCENT = CFG.get("brandAccent", "")                      # word shown in accent colour in the logo
+TESTI_API = CFG.get("testimonialsApi", "")
+import html as _html
+def logo_html():
+    b = _html.escape(BRAND)
+    a = _html.escape(BRAND_ACCENT)
+    return b.replace(a, f"<span>{a}</span>", 1) if a and a in b else b
 HERO_IMG = "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80"
 ABOUT_IMG = "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=500&q=80"
 TODAY = datetime.date.today().isoformat()
@@ -176,7 +183,7 @@ def header(active, depth):
     <a class="tb-mail" data-c="mail" href="mailto:{EMAIL}">&#9993; <span data-c="email-text">{EMAIL}</span></a>
   </div></div>
   <div class="navbar">
-    <a class="logo" href="{p}index.html">Shaifali <span>Jain</span> Math Tutoring</a>
+    <a class="logo" data-c="logo" href="{p}index.html">{logo_html()}</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">&#9776;</button>
     <nav aria-label="Main">
       <ul id="navMenu">{items}
@@ -194,7 +201,7 @@ def footer(depth):
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h3>{BRAND}</h3>
+      <h3 data-c="brand">{BRAND}</h3>
       <p>One-on-one online math lessons for students across timezones and curricula: CBSE, ICSE, American, UK and Australian.</p>
       <p><a class="wa-btn" href="{WA_GENERAL}" target="_blank" rel="noopener">{WA_ICON.replace('width="26" height="26"','width="20" height="20"')} Chat on WhatsApp</a></p>
     </div>
@@ -210,7 +217,7 @@ def footer(depth):
     </div>
   </div>
   <div class="container footer-bottom">
-    <p>&copy; 2026 {BRAND}. All rights reserved. <a href="{p}privacy-policy.html">Privacy Policy</a> &middot; <a href="{p}terms.html">Terms</a></p>
+    <p>&copy; 2026 <span data-c="brand">{BRAND}</span>. All rights reserved. <a href="{p}privacy-policy.html">Privacy Policy</a> &middot; <a href="{p}terms.html">Terms</a></p>
   </div>
 </footer>
 <div class="footer-bar" role="complementary" aria-label="Contact">
@@ -347,7 +354,7 @@ def home():
 
 <section><div class="container">
   <div class="section-title"><h2>What Parents &amp; Students Say</h2></div>
-  <div class="testimonial-grid">{tcards()}</div>
+  <div class="testimonial-grid" data-testi="3">{tcards()}</div>
   <p class="center-note"><a class="btn" href="testimonials.html#share-feedback">Share Your Feedback</a></p>
 </div></section>
 
@@ -450,8 +457,8 @@ def pricing():
                "Get an instant price for one-on-one online math tutoring: single session, monthly plan or exam crash course. Message Shaifali Jain on WhatsApp.",
                "pricing.html", body, bc_schema([("Home", ""), ("Pricing", "pricing.html")]))
 
-def form_open(kind, subject, depth=0, redirect="thank-you.html"):
-    return f'''<form class="js-form" action="https://api.web3forms.com/submit" method="POST" data-redirect="{redirect}">
+def form_open(kind, subject, depth=0, redirect="thank-you.html", extra_attr=""):
+    return f'''<form class="js-form"{extra_attr} action="https://api.web3forms.com/submit" method="POST" data-redirect="{redirect}">
   <input type="hidden" name="access_key" value="{W3F_KEY}">
   <input type="hidden" name="subject" value="{subject}">
   <input type="hidden" name="from_name" value="{BRAND} Website">
@@ -461,12 +468,12 @@ def form_open(kind, subject, depth=0, redirect="thank-you.html"):
 def testimonials():
     bc = [("Testimonials", None)]
     body = page_hero("Testimonials", "What parents and students say about learning math together.", crumbs(bc, 0)) + f'''
-<section><div class="container"><div class="testimonial-grid">{tcards()}</div></div></section>
+<section><div class="container"><div class="testimonial-grid" data-testi="all">{tcards()}</div></div></section>
 <section class="bg-light" id="share-feedback"><div class="container narrow">
   <div class="section-title"><h2>Share Your Feedback</h2>
-  <p>Are you a student or parent? Tell us about your experience. Reviews are checked and then added to this page.</p></div>
+  <p>Are you a student or parent? Tell us about your experience. Your review will appear on this page after a quick check.</p></div>
   <div class="form-card">
-  {form_open("testimonial", "New Testimonial from Website", redirect="thank-you.html?type=feedback")}
+  {form_open("testimonial", "New Testimonial from Website", redirect="thank-you.html?type=feedback", extra_attr=" data-testi-form")}
     <label for="t-name">Your name</label><input id="t-name" name="name" type="text" required autocomplete="name">
     <label for="t-role">I am a</label>
     <select id="t-role" name="role" required><option value="">Select</option><option>Student</option><option>Parent</option></select>
@@ -484,7 +491,7 @@ def testimonials():
     <p class="form-status" role="status" aria-live="polite"></p>
   </form></div>
 </div></section>'''
-    build_page("testimonials.html", "Student & Parent Reviews | Shaifali Jain Math Tutoring",
+    build_page("testimonials.html", f"Student & Parent Reviews | {BRAND}",
                "Read feedback from parents and students about Shaifali Jain's online math classes, and share your own experience.",
                "testimonials.html", body, bc_schema([("Home", ""), ("Testimonials", "testimonials.html")]))
 
@@ -549,7 +556,7 @@ def thankyou():
   <a class="btn" href="index.html">Back to Home</a></p>
   <p class="center-note">While you wait, explore <a href="services.html">my services</a>, <a href="blog/index.html">the math blog</a> or <a href="faq.html">the FAQ</a>.</p>
 </div></section>'''
-    build_page("thank-you.html", "Thank You | Shaifali Jain Math Tutoring", "Thank you for contacting Shaifali Jain Math Tutoring.", "", body, noindex=True)
+    build_page("thank-you.html", f"Thank You | {BRAND}", f"Thank you for contacting {BRAND}.", "", body, noindex=True)
 
 def blog_index():
     bc = [("Blog", None)]
@@ -583,13 +590,13 @@ def blog_posts():
 
 def legal():
     bc = [("Privacy Policy", None)]
-    build_page("privacy-policy.html", "Privacy Policy | Shaifali Jain Math Tutoring", "How Shaifali Jain Math Tutoring collects and uses information submitted through the website forms.", "",
+    build_page("privacy-policy.html", f"Privacy Policy | {BRAND}", f"How {BRAND} collects and uses information submitted through the website forms.", "",
       page_hero("Privacy Policy", f"Last updated: {TODAY}", crumbs(bc, 0)) + f'''<section><div class="container narrow article">
 <h2>Information we collect</h2><p>When you use the contact or feedback form, we receive the details you enter: name, email, phone number and message. Forms are delivered to us by Web3Forms, a third-party form service.</p>
 <h2>How we use it</h2><p>We use your details only to reply to your enquiry, arrange classes and, if you submit feedback with consent, display it on this website. We do not sell your information.</p>
 <h2>WhatsApp</h2><p>If you click a WhatsApp button, you will be taken to WhatsApp and your conversation is subject to WhatsApp's own policy.</p>
 <h2>Your choices</h2><p>To ask us to correct or delete your details, email <a data-c="mail" href="mailto:{EMAIL}"><span data-c="email-text">{EMAIL}</span></a>.</p></div></section>''', noindex=False)
-    build_page("terms.html", "Terms of Use | Shaifali Jain Math Tutoring", "Terms for using the Shaifali Jain Math Tutoring website and booking online classes.", "",
+    build_page("terms.html", f"Terms of Use | {BRAND}", f"Terms for using the {BRAND} website and booking online classes.", "",
       page_hero("Terms of Use", f"Last updated: {TODAY}", crumbs([("Terms", None)], 0)) + f'''<section><div class="container narrow article">
 <h2>Classes</h2><p>Class timings, fees and number of sessions are agreed with the student or parent before classes begin.</p>
 <h2>Cancellation</h2><p>Please give at least 24 hours' notice to reschedule or cancel a session.</p>
@@ -598,7 +605,7 @@ def legal():
 <h2>Contact</h2><p>Questions? Email <a data-c="mail" href="mailto:{EMAIL}"><span data-c="email-text">{EMAIL}</span></a>.</p></div></section>''')
 
 def notfound():
-    html = head("Page Not Found | Shaifali Jain Math Tutoring", "The page you are looking for could not be found.", "404.html", 0, noindex=True)
+    html = head(f"Page Not Found | {BRAND}", "The page you are looking for could not be found.", "404.html", 0, noindex=True)
     html = html.replace('href="css/style.css"', f'href="{BASE_PATH}/css/style.css"')
     hd = header("", 0).replace('href="', f'href="{BASE_PATH}/').replace(f'href="{BASE_PATH}/https', 'href="https').replace(f'href="{BASE_PATH}/tel', 'href="tel')
     ft = footer(0).replace('href="', f'href="{BASE_PATH}/').replace('src="js', f'src="{BASE_PATH}/js').replace(f'href="{BASE_PATH}/https', 'href="https').replace(f'href="{BASE_PATH}/tel', 'href="tel').replace(f'href="{BASE_PATH}/mailto', 'href="mailto')
