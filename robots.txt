@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you.html
+
+Sitemap: https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/sitemap.xml
