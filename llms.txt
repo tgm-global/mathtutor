@@ -1,0 +1,27 @@
+# Shaifali Jain Math Tutoring
+
+> Online one-on-one math tutoring by Shaifali Jain for students across time zones. Covers CBSE, ICSE, American, UK and Australian curricula: foundational math, algebra, geometry, trigonometry, exam preparation and homework help. A free consultation is offered.
+
+Lessons are live, personalised and use a digital whiteboard. Curricula: CBSE/ICSE grades 6 to 10 including board exams; American Pre-Algebra, Algebra 1 and 2, Geometry; UK KS2, KS3 and GCSE; Australian primary and secondary. Pricing options are a single 60-minute session, a monthly plan (8 sessions) and an exam crash course; exact fees depend on grade, curriculum and sessions and are sent on request via WhatsApp. Contact: +91 96259 59146 (call or WhatsApp), jshaifali91@gmail.com. Language: English.
+
+## Main pages
+- [Home](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/): Overview of the online math classes
+- [About Shaifali Jain](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/about.html): Tutor background and teaching approach
+- [Services](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/services.html): Foundational math, Algebra 1 and 2, Geometry, Trigonometry, Exam preparation, Homework help
+- [Pricing](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/pricing.html): Single session, monthly plan, exam crash course
+- [Student and parent reviews](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/testimonials.html): Feedback from parents and students
+- [FAQ](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/faq.html): How classes work, devices, grades, timings, homework and cancellation
+- [Contact and free consultation](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/contact.html): Call, WhatsApp, email or message form
+
+## Blog
+- [Blog index](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/index.html): Study tips for students and parents
+- [A simple 4-week math exam revision plan](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/4-week-math-exam-revision-plan.html)
+- [5 tips to make algebra easier for grades 8 to 10](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/5-tips-to-make-algebra-easier.html)
+- [How to choose the right online math tutor for your child](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/how-to-choose-online-math-tutor.html)
+- [One-on-one vs group math classes](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/one-on-one-vs-group-math-classes.html)
+- [6 signs your child is afraid of math](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/blog/signs-your-child-is-afraid-of-math.html)
+
+## Optional
+- [Privacy Policy](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/privacy-policy.html)
+- [Terms of Use](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/terms.html)
+- [Sitemap](https://YOUR-GITHUB-USERNAME.github.io/shaifalimathtutor/sitemap.xml)

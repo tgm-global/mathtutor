@@ -154,6 +154,7 @@ def head(title, desc, path, depth, extra="", noindex=False, og_type="website"):
 <meta name="description" content="{desc}">
 {robots}
 {canon}
+<link rel="alternate" type="text/markdown" title="llms.txt" href="{SITE_URL}/llms.txt">
 <meta name="author" content="Shaifali Jain">
 <meta name="theme-color" content="#3f51b5">
 <meta property="og:type" content="{og_type}">
@@ -612,6 +613,35 @@ def notfound():
     body = f'<main id="main"><section class="thanks"><div class="container narrow center"><h1>Page not found</h1><p>Sorry, that page does not exist or has moved.</p><p><a class="btn" href="{BASE_PATH}/index.html">Go to Home</a> <a class="btn btn-wa" href="{BASE_PATH}/contact.html">Contact Me</a></p></div></section></main>'
     write("404.html", html + hd + body + ft)
 
+LLMS_TXT = """# Shaifali Jain Math Tutoring
+
+> Online one-on-one math tutoring by Shaifali Jain for students across time zones. Covers CBSE, ICSE, American, UK and Australian curricula: foundational math, algebra, geometry, trigonometry, exam preparation and homework help. A free consultation is offered.
+
+Lessons are live, personalised and use a digital whiteboard. Curricula: CBSE/ICSE grades 6 to 10 including board exams; American Pre-Algebra, Algebra 1 and 2, Geometry; UK KS2, KS3 and GCSE; Australian primary and secondary. Pricing options are a single 60-minute session, a monthly plan (8 sessions) and an exam crash course; exact fees depend on grade, curriculum and sessions and are sent on request via WhatsApp. Contact: +91 96259 59146 (call or WhatsApp), jshaifali91@gmail.com. Language: English.
+
+## Main pages
+- [Home]({{SITE_URL}}/): Overview of the online math classes
+- [About Shaifali Jain]({{SITE_URL}}/about.html): Tutor background and teaching approach
+- [Services]({{SITE_URL}}/services.html): Foundational math, Algebra 1 and 2, Geometry, Trigonometry, Exam preparation, Homework help
+- [Pricing]({{SITE_URL}}/pricing.html): Single session, monthly plan, exam crash course
+- [Student and parent reviews]({{SITE_URL}}/testimonials.html): Feedback from parents and students
+- [FAQ]({{SITE_URL}}/faq.html): How classes work, devices, grades, timings, homework and cancellation
+- [Contact and free consultation]({{SITE_URL}}/contact.html): Call, WhatsApp, email or message form
+
+## Blog
+- [Blog index]({{SITE_URL}}/blog/index.html): Study tips for students and parents
+- [A simple 4-week math exam revision plan]({{SITE_URL}}/blog/4-week-math-exam-revision-plan.html)
+- [5 tips to make algebra easier for grades 8 to 10]({{SITE_URL}}/blog/5-tips-to-make-algebra-easier.html)
+- [How to choose the right online math tutor for your child]({{SITE_URL}}/blog/how-to-choose-online-math-tutor.html)
+- [One-on-one vs group math classes]({{SITE_URL}}/blog/one-on-one-vs-group-math-classes.html)
+- [6 signs your child is afraid of math]({{SITE_URL}}/blog/signs-your-child-is-afraid-of-math.html)
+
+## Optional
+- [Privacy Policy]({{SITE_URL}}/privacy-policy.html)
+- [Terms of Use]({{SITE_URL}}/terms.html)
+- [Sitemap]({{SITE_URL}}/sitemap.xml)
+"""
+
 def seo_files():
     urls = ["index.html", "about.html", "services.html", "pricing.html", "testimonials.html", "faq.html", "contact.html",
             "blog/index.html", "privacy-policy.html", "terms.html"] + [f'blog/{p["slug"]}.html' for p in POSTS]
@@ -622,6 +652,7 @@ def seo_files():
     write("sitemap.xml", x + "</urlset>\n")
     write(".nojekyll", "")
     if CUSTOM_DOMAIN: write("CNAME", CUSTOM_DOMAIN + "\n")
+    write("llms.txt", LLMS_TXT.replace("{{SITE_URL}}", SITE_URL))
     write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /thank-you.html\n\nSitemap: {SITE_URL}/sitemap.xml\n")
 
 if __name__ == "__main__":
